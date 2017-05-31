@@ -5,4 +5,6 @@ MAINTAINER Pau Ruiz Safont psafont@ebi.ac.uk
 RUN cpanm Bundle::LWP REST::Client WWW::Curl WWW::Curl::Simple XML::Simple
 
 COPY ./*.pl /usr/src/ebitools/
+# package secondary tools for linking the perl scripts
+COPY ./*.sh /usr/src/ebitools/
 WORKDIR /usr/src/ebitools
