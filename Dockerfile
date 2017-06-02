@@ -7,4 +7,6 @@ RUN cpanm Bundle::LWP REST::Client WWW::Curl WWW::Curl::Simple XML::Simple
 COPY ./*.pl /usr/src/ebitools/
 # package secondary tools for linking the perl scripts
 COPY ./*.sh /usr/src/ebitools/
+RUN chmod +x /usr/src/ebitools/*.*
 WORKDIR /usr/src/ebitools
+ENV PATH="/usr/src/ebitools/:${PATH}"
