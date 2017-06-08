@@ -9,7 +9,7 @@ variables:
 
 .clone_setup: &clone_setup
   before_script:
-    - mkdir ~/.ssh
+    - mkdir -p ~/.ssh
     - echo -e "${GIT_KEY}" >> ~/.ssh/"${GIT_USER}" && chmod 400 ~/.ssh/"${GIT_USER}"
     - echo -e "Host *\n\tIdentityFile ~/.ssh/%r\n\tStrictHostKeyChecking no" >> ~/.ssh/config
 
