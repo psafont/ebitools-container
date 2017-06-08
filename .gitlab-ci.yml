@@ -16,7 +16,9 @@ variables:
 # In practice, this allows mirroring to external repo, the public key needs to be
 # copied to the external repo.
 clone:
+  <<: *clone_setup
   stage: deploy
+  image: alpine/git:latest
   tags:
     - docker
   script:
