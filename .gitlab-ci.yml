@@ -1,12 +1,33 @@
 # Official docker image.
 image: docker:latest
 
+variables:
+  GIT_USER: git
+  # to be injected
+  GIT_KEY: deploy-key-for-remote-git-repo
+  GIT_DOWNSTREAM: downstream
+
+.clone_setup: &clone_setup
+  before_script:
+    - mkdir ~/.ssh
+    - echo -e "${GIT_KEY}" >> ~/.ssh/"${GIT_USER}" && chmod 400 ~/.ssh/"${GIT_USER}"
+    - echo -e "Host *\n\tIdentityFile ~/.ssh/%r\n\tStrictHostKeyChecking no" >> ~/.ssh/config
+
+# In practice, this allows mirroring to external repo, the public key needs to be
+# copied to the external repo.
+clone:
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - git push --repo="${GIT_USER}@${GIT_DOWNSTREAM}" --force --mirror
+
 build:
   stage: build
   tags:
     - docker-build
   script:
-    - export IMAGE_TAG=$(echo -en $CI_COMMIT_REF_NAME | tr -c '[:alnum:]_.-' '-')
+    - export IMAGE_TAG=$(echo -en "$CI_COMMIT_REF_NAME" | tr -c '[:alnum:]_.-' '-')
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
     - docker build --pull -t "${CI_REGISTRY}/${CI_PROJECT_PATH}:$IMAGE_TAG" .
     - docker push "${CI_REGISTRY}/${CI_PROJECT_PATH}:$IMAGE_TAG"
