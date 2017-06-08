@@ -18,7 +18,7 @@ variables:
 clone:
   <<: *clone_setup
   stage: deploy
-  image: andthensome/alpine-hugo-git-bash
+  image: psafont/alpine-ssh-git
   tags:
     - docker
   script:
