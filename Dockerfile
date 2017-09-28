@@ -1,9 +1,10 @@
-FROM perl:5.24
+FROM scottw/alpine-perl:5.26.0
 MAINTAINER Pau Ruiz Safont psafont@ebi.ac.uk
 
 # Dependencies
-RUN apt-get update
-RUN apt-get -y install libwww-curl-perl
+RUN apk update && \
+    apk add expat-dev
+
 RUN cpanm Bundle::LWP REST::Client XML::Simple YAML::Syck
 
 WORKDIR /usr/src/ebitools
