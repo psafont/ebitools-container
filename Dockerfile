@@ -10,7 +10,7 @@ RUN cpanm Bundle::LWP REST::Client XML::Simple YAML::Syck
 WORKDIR /usr/src/ebitools
 ENV PATH="/usr/src/ebitools/:${PATH}"
 
-COPY ./*.pl /usr/src/ebitools/
+COPY ./clients/*.pl /usr/src/ebitools/
 # package secondary tools for linking the perl scripts
 COPY ./*.sh /usr/src/ebitools/
 RUN chmod +x /usr/src/ebitools/*.*
