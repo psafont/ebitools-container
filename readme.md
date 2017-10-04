@@ -3,6 +3,7 @@
 1. Clone this repository
 2. Build the image with `docker build -t image_name .`
 3. Run the container with `docker run image_name ncbiblast_lwp.pl --email docker@ebi.ac.uk --stype protein --database uniprotkb_swissprot --program blastp sp:wap_rat`
+4. Alternatively, to save results it can be run as `docker run --rm -w /results -v /path/local/destination:/results image_name ncbiblast_lwp.pl --email docker@ebi.ac.uk --stype protein --database uniprotkb_swissprot --program blastp sp:wap_rat`
 
 # How to update clients
 
